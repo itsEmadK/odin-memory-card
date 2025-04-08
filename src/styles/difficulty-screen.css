@@ -1,0 +1,27 @@
+.diff-container {
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 2em;
+}
+
+.difficulties {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  justify-content: center;
+}
+
+.difficulty-heading {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.difficulties button {
+  padding: 0.75em 1.25em;
+  font-size: 1.1rem;
+  appearance: none;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid black;
+}
