@@ -14,7 +14,7 @@ export default function CardGrid({
 
   function handleCardClick(cardId) {
     if (clickedIds.includes(cardId)) {
-      onGameOver();
+      onGameOver(cards.find((card) => cardId === card.id));
     } else {
       setClickedIds([...clickedIds, cardId]);
       setCards(shuffleArray(cards));
