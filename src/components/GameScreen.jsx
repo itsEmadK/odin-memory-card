@@ -9,7 +9,11 @@ export default function GameScreen({ difficulty = 'easy' }) {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [shuffledCards, setShuffledCards] = useState(
-    shuffleArray(authors)
+    difficulty === 'hard'
+      ? shuffleArray(authors)
+      : difficulty === 'medium'
+        ? shuffleArray(authors).slice(0, 10)
+        : shuffleArray(authors).slice(0, 5)
   );
   const [clickedIds, setClickedIds] = useState([]);
   const [showGameOverModal, setShowGameOverModal] = useState(false);
@@ -61,7 +65,11 @@ export default function GameScreen({ difficulty = 'easy' }) {
         </div>
       </div>
       <CardGrid
-        cards={shuffledCards}
+        cards={
+          difficulty === 'easy'
+            ? shuffledCards.slice(0, 3)
+            : shuffledCards.slice(0, 5)
+        }
         onCardClicked={handleCardClick}
         hideCards={false}
       ></CardGrid>
