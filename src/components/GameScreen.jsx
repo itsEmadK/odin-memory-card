@@ -55,7 +55,9 @@ export default function GameScreen({ difficulty = 'easy' }) {
       <div className="scoreboard-container">
         <div className="scoreboard">
           <h2 className="score">Score: {score}</h2>
-          <h2 className="best-score">Best Score: {bestScore}</h2>
+          <h2 className="best-score">
+            Best Score: {bestScore} / {shuffledCards.length}
+          </h2>
         </div>
       </div>
       <CardGrid
