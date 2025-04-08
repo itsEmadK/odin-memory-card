@@ -1,0 +1,15 @@
+.scoreboard-container {
+  padding: 1em;
+  display: flex;
+  justify-content: end;
+  font-family: sans-serif;
+}
+
+.scoreboard {
+  display: grid;
+  gap: 1em;
+  margin-bottom: 1em;
+  background-color: beige;
+  padding: 1em;
+  border-radius: 8px;
+}
