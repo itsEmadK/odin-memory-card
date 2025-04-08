@@ -1,25 +1,9 @@
-import { useState } from 'react';
 import '../styles/card-grid.css';
 import Card from './Card.jsx';
-import { shuffleArray } from '../logic/shuffleArray.js';
 
-export default function CardGrid({
-  initialCards,
-  incScore,
-  onGameOver,
-  hideCards,
-}) {
-  const [cards, setCards] = useState(shuffleArray(initialCards));
-  const [clickedIds, setClickedIds] = useState(shuffleArray(initialCards));
-
+export default function CardGrid({ cards, onCardClicked, hideCards }) {
   function handleCardClick(cardId) {
-    if (clickedIds.includes(cardId)) {
-      onGameOver(cards.find((card) => cardId === card.id));
-    } else {
-      setClickedIds([...clickedIds, cardId]);
-      setCards(shuffleArray(cards));
-      incScore();
-    }
+    onCardClicked(cardId);
   }
 
   return (
