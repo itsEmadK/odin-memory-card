@@ -3,28 +3,25 @@ import { authors } from '../data/authors.js';
 import CardGrid from './CardGrid.jsx';
 import '../styles/game-screen.css';
 import { shuffleArray } from '../logic/shuffleArray.js';
+import GameOverModal from './GameOverModal.jsx';
 
 export default function GameScreen({ difficulty = 'easy' }) {
-  const [round, setRound] = useState(0);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [shuffledCards, setShuffledCards] = useState(
     shuffleArray(authors)
   );
   const [clickedIds, setClickedIds] = useState([]);
+  const [showGameOverModal, setShowGameOverModal] = useState(false);
+  const [doubleClickedCard, setDoubleClickedCard] = useState(null);
 
   function handleScoreIncrement() {
     setScore(score + 1);
   }
 
   function handleGameOver(cardId) {
-    setRound(round + 1);
-    setScore(0);
-    if (score > bestScore) {
-      setBestScore(score);
-    }
-    setClickedIds([]);
-    setShuffledCards(shuffleArray(shuffledCards));
+    setShowGameOverModal(true);
+    setDoubleClickedCard(shuffledCards.find((card) => card.id === cardId));
   }
 
   function handleCardClick(cardId) {
@@ -37,8 +34,24 @@ export default function GameScreen({ difficulty = 'easy' }) {
     }
   }
 
+  function handleNewGame() {
+    setScore(0);
+    if (score > bestScore) {
+      setBestScore(score);
+    }
+    setShuffledCards(shuffleArray(shuffledCards));
+    setShowGameOverModal(false);
+    setClickedIds([]);
+  }
+
   return (
     <>
+      {showGameOverModal && (
+        <GameOverModal
+          doubleClickedCard={doubleClickedCard}
+          onNewGame={handleNewGame}
+        ></GameOverModal>
+      )}
       <div className="scoreboard-container">
         <div className="scoreboard">
           <h2 className="score">Score: {score}</h2>
@@ -46,7 +59,6 @@ export default function GameScreen({ difficulty = 'easy' }) {
         </div>
       </div>
       <CardGrid
-        key={round}
         cards={shuffledCards}
         onCardClicked={handleCardClick}
         hideCards={false}
