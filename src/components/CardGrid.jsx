@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import '../styles/card-grid.css';
 import Card from './Card.jsx';
+import { shuffleArray } from '../logic/shuffleArray.js';
 
 export default function CardGrid({
-  cards,
-  onValidChoice,
-  onInvalidChoice,
+  initialCards,
+  incScore,
+  onGameOver,
   hideCards,
 }) {
-  const [clickedIds, setClickedIds] = useState([]);
+  const [cards, setCards] = useState(shuffleArray(initialCards));
+  const [clickedIds, setClickedIds] = useState(shuffleArray(initialCards));
 
   function handleCardClick(cardId) {
     if (clickedIds.includes(cardId)) {
-      onInvalidChoice();
+      onGameOver();
     } else {
       setClickedIds([...clickedIds, cardId]);
-      onValidChoice();
+      setCards(shuffleArray(cards));
+      incScore();
     }
   }
 
